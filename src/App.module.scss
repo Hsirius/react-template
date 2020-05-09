@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+#root {
+  height: 100%;
+}
+.box {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+  .content_box {
+    display: flex;
+    flex: 1;
+    .right_content {
+      flex: 1;
+    }
+  }
+}
+
+//全局样式
+:global {
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style: none;
+  }
+}

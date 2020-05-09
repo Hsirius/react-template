@@ -1,0 +1,74 @@
+$leftWidth: 256px;
+$headerHeight: 60px;
+
+.header {
+  color: #fff;
+  background: #000;
+  height: $headerHeight;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  h1 {
+    width: $leftWidth;
+    color: inherit;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 0;
+    font-size: 20px;
+    height: 100%;
+    line-height: $headerHeight;
+  }
+  .user_box {
+    display: flex;
+    align-items: center;
+    .user {
+      line-height: $headerHeight;
+      margin: 0 50px 0;
+    }
+  }
+}
+
+.left {
+  width: $leftWidth;
+  background: #fff;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  min-height: 100%;
+  li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.85);
+    padding-left: 48px;
+    margin: 4px 0 8px;
+    position: relative;
+    cursor: pointer;
+    a {
+      color: inherit;
+      display: block;
+      cursor: pointer;
+    }
+    a::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: transparent;
+      content: "";
+    }
+  }
+  a:hover {
+    color: #1890ff;
+  }
+  .active {
+    color: #fff;
+    background-color: #1890ff;
+    a {
+      color: inherit;
+    }
+  }
+}

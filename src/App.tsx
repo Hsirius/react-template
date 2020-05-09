@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserHistory } from "history";
+import { observer } from "mobx-react-lite";
+import React, { useEffect, useState } from "react";
+import { Route, Router, Switch } from "react-router-dom";
+import { Routes } from "./menu";
+import useRootStore, { RootStore, rootStoreContext } from "./models";
+import Login from "./pages/Login";
 
-function App() {
+export const history = createBrowserHistory();
+
+const Main = observer(() => {
+  const rootStore = useRootStore();
+  useEffect(() => {
+    rootStore.global.fetchCurrentUser();
+  }, [rootStore]);
+  return rootStore.global.currentUser ? <Routes /> : null;
+});
+
+const App = () => {
+  const [rootStore] = useState(() => new RootStore());
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <rootStoreContext.Provider value={rootStore}>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/" render={() => <Main />}></Route>
+        </Switch>
+      </rootStoreContext.Provider>
+    </Router>
   );
-}
+};
 
 export default App;

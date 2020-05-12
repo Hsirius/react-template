@@ -7,6 +7,7 @@ const menu: ProMenuExport = [
     path: "/user",
     hideInMenu: true,
     exact: true,
+    hideInBreadcrumb: true,
     component: React.lazy(() => import("./user")),
   },
 ];

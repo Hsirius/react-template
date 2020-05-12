@@ -1,8 +1,8 @@
-import React from "react";
-import { useLocalStore, useObserver } from "mobx-react-lite";
-import { Link } from "react-router-dom";
 import { Radio } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio";
+import { useLocalStore, useObserver } from "mobx-react-lite";
+import React, { FC } from "react";
+import { RouteComponentProps } from "react-router-dom";
 
 export const roleList = [
   { key: "releaser", value: "发布员" },
@@ -10,24 +10,27 @@ export const roleList = [
   { key: "auditor", value: "审核员" },
 ];
 
-const User = () => {
+const User: FC<RouteComponentProps> = ({ history }) => {
   const store = useLocalStore(() => ({
     value: "",
     onChange: (e: RadioChangeEvent) => {
       store.value = e.target.value;
-      sessionStorage.setItem("role", e.target.value);
+    },
+    toMisssion: () => {
+      sessionStorage.setItem("role", store.value);
+      history.push("/mission");
     },
   }));
   return useObserver(() => (
     <div>
       <Radio.Group onChange={store.onChange}>
         {roleList.map((item) => (
-          <Radio key={item.key} value={item.key}>
+          <Radio key={item.key} value={item.value}>
             {item.value}
           </Radio>
         ))}
       </Radio.Group>
-      <Link to={"/"}>to home</Link>
+      {store.value ? <a onClick={store.toMisssion}>to mission</a> : null}
     </div>
   ));
 };

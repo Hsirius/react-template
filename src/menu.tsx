@@ -1,12 +1,13 @@
-import React, { ComponentType, Suspense, FC } from "react";
+import React, { ComponentType, Suspense } from "react";
 //这里加root路径，不然报错
 import { hot } from "react-hot-loader/root";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import styles from "./App.module.scss";
+import BreadCrumb from "./components/breadCrumb";
 import Header from "./components/header";
 import Left from "./components/left";
 
-const menu: ProMenuType[] = [];
+export const menu: ProMenuType[] = [];
 
 //@ts-ignore
 const context = require.context("./pages", true, /\.\/[^/]+\/index\.ts?$/);
@@ -34,6 +35,8 @@ export interface ProMenuType {
   hideInMenu?: boolean;
   //是否在面包屑中隐藏
   hideInBreadcrumb?: boolean;
+  //是否在侧边导航栏显示
+  navFlag?: boolean;
 }
 
 context.keys().forEach((item: string) => {
@@ -89,9 +92,14 @@ const processMenuItem = (menuItem: ProMenuType) => {
           <div className={styles.content_box}>
             {menuItem.hideInMenu ? null : <Left />}
             <div className={styles.right_content}>
-              <Suspense fallback={null}>
-                <Component {...props}>{children}</Component>
-              </Suspense>
+              {menuItem.hideInBreadcrumb ? null : (
+                <BreadCrumb title={menuItem.name} />
+              )}
+              <div className={styles.content}>
+                <Suspense fallback={null}>
+                  <Component {...props}>{children}</Component>
+                </Suspense>
+              </div>
             </div>
           </div>
         </div>

@@ -72,3 +72,16 @@ $headerHeight: 60px;
     }
   }
 }
+
+//breadCrumb
+.page_header {
+  background: #fff;
+  padding: 12px 24px 16px;
+  .title {
+    margin: 12px 0 4px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 32px;
+  }
+}

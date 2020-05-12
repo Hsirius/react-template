@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  background: #f0f2f5 !important;
 }
 #root {
   height: 100%;
@@ -14,6 +15,9 @@ body {
     flex: 1;
     .right_content {
       flex: 1;
+      .content {
+        margin: 24px 24px 0;
+      }
     }
   }
 }
@@ -25,5 +29,8 @@ body {
   }
   li {
     list-style: none;
+  }
+  p {
+    margin: 0;
   }
 }
